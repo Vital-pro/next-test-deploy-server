@@ -1,3 +1,7 @@
-h1 {
+.password-title {
   color: red;
+}
+
+.entry-title {
+  color: #3fe73fdb;
 }

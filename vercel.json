@@ -16,6 +16,10 @@
       "dest": "server.js"
     },
     {
+      "src": "/password/(.*)",
+      "dest": "public/index1.html"
+    },
+    {
       "src": "/",
       "dest": "public/index.html"
     },

@@ -35,8 +35,8 @@ async function getData() {
 }
 
 app.get('/api/first',async (req, res) => {
-  // cron.schedule('* * * * *', getData)
-  const data = await getData();
+  cron.schedule('* * * * *', getData)
+  // const data = await getData();
   res.send('Hello World!');
 });
 

@@ -9,11 +9,11 @@ const cheerio = require('cheerio');
 // });
 
 const app = express();
-app.use(cors());
 
+app.use(cors());
+app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static('public'));
 
 const checkPassword = (req, res, next) => {
   if (req.query.password !== process.env.PASSWORD) {
@@ -46,13 +46,14 @@ app.get('/api/news', async (req, res) => {
 });
 
 app.get('/api/password', checkPassword, (req, res) => {
-  // if (req.query.password === process.env.PASSWORD) {
+  if (req.query.password === process.env.PASSWORD) {
+    console.log('message!!')
   res.sendFile('./public/index1.html', { root: __dirname });
-  // } else {
-  // res.json({
-  //   authorized: 'Bad Request',
-  // });
-  // }
+  } else {
+  res.json({
+    authorized: 'Bad Request',
+  });
+  }
 });
 
 app.listen(process.env.PORT || 3001, () => {

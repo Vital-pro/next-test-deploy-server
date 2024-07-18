@@ -9,8 +9,8 @@ const cheerio = require('cheerio');
 // });
 
 const app = express();
-
 app.use(cors());
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
@@ -21,7 +21,7 @@ app.get('/api/news', (req, res) => {
   });
 });
 
-app.get('/password', (req, res) => {
+app.get('/password/', (req, res) => {
   if (req.query.password === process.env.PASSWORD) {
     res.sendFile('./public/index1.html', { root: __dirname })
   } else {

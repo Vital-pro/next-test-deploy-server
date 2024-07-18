@@ -26,9 +26,22 @@ const checkPassword = (req, res, next) => {
   }
 };
 
-app.get('/api/news', (req, res) => {
+async function getData() {
+  const response = await fetch(`https://dog.ceo/api/breeds/image/random`);
+  const data = await response.json();
+  app.locals.data = data.message;
+  console.log(data);
+  return app.locals.data;
+}
+
+app.get('/api/start', (req, res) => {
+
+});
+
+app.get('/api/news', async (req, res) => {
+  const data = await getData();
   res.json({
-    temp: 30,
+    message: data,
   });
 });
 

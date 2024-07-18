@@ -11,7 +11,7 @@ const cheerio = require('cheerio');
 const app = express();
 
 app.use(cors());
-app.use(express.static('public'));
+app.use('/', express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -34,20 +34,21 @@ async function getData() {
   return app.locals.data;
 }
 
-app.get('/api/start', (req, res) => {
-
+app.get('/api/first', (req, res) => {
+  cron.schedule('* * * * *', getData)
 });
 
 app.get('/api/news', async (req, res) => {
-  const data = await getData();
+  // const data = await getData();
+  const data = app.locals.data;
+  console.log(data)
   res.json({
-    message: data,
+    message: app.locals.data,
   });
 });
 
 app.get('/api/password', checkPassword, (req, res) => {
   if (req.query.password === process.env.PASSWORD) {
-    console.log('message!!')
   res.sendFile('./public/index1.html', { root: __dirname });
   } else {
   res.json({

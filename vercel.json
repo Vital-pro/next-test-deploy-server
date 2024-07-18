@@ -16,10 +16,6 @@
       "dest": "server.js"
     },
     {
-      "src": "/password?",
-      "dest": "public/$1"
-    },
-    {
       "src": "/",
       "dest": "public/index.html"
     },

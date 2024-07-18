@@ -32,7 +32,7 @@ app.get('/api/news', (req, res) => {
   });
 });
 
-app.get('/password', checkPassword, (req, res) => {
+app.get('/api/password', checkPassword, (req, res) => {
   // if (req.query.password === process.env.PASSWORD) {
   res.sendFile('./public/index1.html', { root: __dirname });
   // } else {

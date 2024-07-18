@@ -16,7 +16,7 @@
       "dest": "server.js"
     },
     {
-      "src": "/password?(.*)",
+      "src": "/password?",
       "dest": "public/$1"
     },
     {

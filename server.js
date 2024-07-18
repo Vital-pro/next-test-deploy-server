@@ -35,13 +35,13 @@ async function getData() {
 }
 
 app.get('/api/first', (req, res) => {
-  cron.schedule('* * * * *', getData)
+  // cron.schedule('* * * * *', getData)
   res.send('Hello World!');
 });
 
 app.get('/api/news', async (req, res) => {
-  // const data = await getData();
-  const data = app.locals.data;
+  const data = await getData();
+  // const data = app.locals.data;
   console.log(data)
   res.json({
     message: app.locals.data,

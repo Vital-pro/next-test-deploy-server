@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const cron = require('node-cron');
 const cheerio = require('cheerio');
+const fs = require('fs');
 
 // cron.schedule('* * * * *', () => {
 //   console.log('running a task every minute');
@@ -29,14 +30,19 @@ app.use(express.urlencoded({ extended: true }));
 async function getData() {
   const response = await fetch(`https://dog.ceo/api/breeds/image/random`);
   const data = await response.json();
+  const date = String(new Date());
+  fs.appendFile('datelog.txt', `\n${date}`, function (err) {
+    if (err) throw err;
+    console.log('Saved!');
+  })
   app.locals.data = data.message;
   console.log(data);
   return app.locals.data;
 }
 
 app.get('/api/first', async (req, res) => {
-  // cron.schedule('* * * * *', getData)
   await getData();
+  cron.schedule('11-20,25-30 * * * *', getData)
   res.send('Hello World!');
 });
 

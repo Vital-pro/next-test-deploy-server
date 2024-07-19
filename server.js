@@ -42,7 +42,7 @@ async function getData() {
 
 app.get('/api/first', async (req, res) => {
   await getData();
-  cron.schedule('11-20,25-30 * * * *', getData)
+  cron.schedule('19-25,28-35 * * * *', getData)
   res.send('Hello World!');
 });
 

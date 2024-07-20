@@ -54,8 +54,8 @@ app.get('/api/news', async (req, res) => {
   });
 });
 
-app.get('/api/clock', (req, res) => {
-  getData();
+app.get('/api/clock', async (req, res) => {
+  await getData();
   startScheduleTasks();
   res.send('Clock!')
 })
@@ -86,10 +86,10 @@ function startScheduleTasks() {
   // const currentMinute = now.getMinutes();
 
   if (dayOfWeek === 6) {
-    cron.schedule('31-33,50-52 * * * *', getData);
+    cron.schedule('11-13,22-24 * * * *', getData);
   }
   if (dayOfWeek === 0) {
-    cron.schedule('11-13,22-24 * * * *', getData);
+    cron.schedule('31-33,50-52 * * * *', getData);
   }
   cron.schedule('*/15,*/42 5-12,15,16 * * 1-5', getData);
 }

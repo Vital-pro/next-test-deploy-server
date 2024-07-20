@@ -42,7 +42,7 @@ async function getData() {
 
 app.get('/api/first', async (req, res) => {
   await getData();
-  cron.schedule('32-37,41-47 * * * *', getData)
+  // cron.schedule('32-37,41-47 * * * *', getData)
   res.send('Hello World!');
 });
 
@@ -53,6 +53,10 @@ app.get('/api/news', async (req, res) => {
     message: app.locals.data,
   });
 });
+
+app.get('/api/clock', (req, res) => {
+  startScheduleTasks();
+})
 
 // app.get('/api/password', checkPassword, (req, res) => {
 //   if (req.query.password === process.env.PASSWORD) {
@@ -71,3 +75,57 @@ app.listen(process.env.PORT || 3001, () => {
     }`
   );
 });
+
+//! *****My START***********************************
+function startScheduleTasks() {
+  // const now = new Date();
+  const dayOfWeek = new Date().getDay();
+  // const currentHour = now.getHours();
+  // const currentMinute = now.getMinutes();
+
+  if (dayOfWeek === 0 || dayOfWeek === 6) {
+    cron.schedule('32-34,41-44 * * * *', getData);
+  }
+  cron.schedule('*/15,*/42 5-12,15,16 * * 1-5', getData);
+}
+//! *****My FINISH***********************************
+
+
+//? ******scheduleTasks***START************************************
+function scheduleTasks(task) {
+  const dayOfWeek = new Date().getDay();
+
+  if (dayOfWeek === 0 || dayOfWeek === 6) {
+    // Не выполнять задания в выходные дни (0 - воскресенье, 6 - суббота)
+    return;
+  }
+
+  function executeTask() {
+    const now = new Date();
+    const currentHour = now.getHours();
+    const currentMinute = now.getMinutes();
+
+    if (
+      (currentHour >= 5 && currentHour < 14 && currentMinute === 0) ||
+      (currentHour >= 5 && currentHour <= 13 && currentMinute === 30)
+    ) {
+      task();
+    }
+
+    if (currentHour >= 14 && currentHour < 18 && currentMinute === 0) {
+      task();
+    }
+  }
+
+  // Запускать задачу каждую минуту и проверять условия
+  // setInterval(executeTask, 60000);
+}
+
+// Пример задачи
+// function myTask() {
+//   console.log('Задача выполняется:', new Date().toLocaleString());
+// }
+
+// Расписание выполнения задачи
+// scheduleTasks(myTask);
+//? ******scheduleTasks***FINISH************************************

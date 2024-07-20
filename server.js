@@ -84,7 +84,7 @@ function startScheduleTasks() {
   // const currentMinute = now.getMinutes();
 
   if (dayOfWeek === 0 || dayOfWeek === 6) {
-    cron.schedule('32-34,41-44 * * * *', getData);
+    cron.schedule('41-44,50-52 * * * *', getData);
   }
   cron.schedule('*/15,*/42 5-12,15,16 * * 1-5', getData);
 }

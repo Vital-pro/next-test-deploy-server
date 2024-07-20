@@ -55,7 +55,9 @@ app.get('/api/news', async (req, res) => {
 });
 
 app.get('/api/clock', (req, res) => {
+  getData();
   startScheduleTasks();
+  res.send('Clock!')
 })
 
 // app.get('/api/password', checkPassword, (req, res) => {
@@ -83,8 +85,11 @@ function startScheduleTasks() {
   // const currentHour = now.getHours();
   // const currentMinute = now.getMinutes();
 
-  if (dayOfWeek === 0 || dayOfWeek === 6) {
-    cron.schedule('41-44,50-52 * * * *', getData);
+  if (dayOfWeek === 6) {
+    cron.schedule('31-33,50-52 * * * *', getData);
+  }
+  if (dayOfWeek === 0) {
+    cron.schedule('11-13,22-24 * * * *', getData);
   }
   cron.schedule('*/15,*/42 5-12,15,16 * * 1-5', getData);
 }

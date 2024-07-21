@@ -41,7 +41,7 @@ async function getData() {
 }
 
 app.get('/api/first', async (req, res) => {
-  await getData();
+  // await getData();
   // cron.schedule('32-37,41-47 * * * *', getData)
   res.send('Hello World!');
 });
@@ -55,7 +55,7 @@ app.get('/api/news', async (req, res) => {
 });
 
 app.get('/api/clock', async (req, res) => {
-  // await getData();
+  await getData();
   startScheduleTasks();
   res.send('Clock!')
 })
@@ -91,8 +91,8 @@ function startScheduleTasks() {
   const currentMinute = now.getMinutes();
 
   if (dayOfWeek === 0 || dayOfWeek === 6) {
-    cron.schedule('15 20-22 * * *', getData);
-    cron.schedule('40 23 * * *', getData);
+    cron.schedule('15,25,37,42,55,1,6 20-22 * * *', getData);
+    cron.schedule('44,11,22 23 * * *', getData);
   } 
   if (dayOfWeek === 1) {
     // Каждую 15-ю минуту и ​​каждую 42-ю минуту каждого часа с 5 до 12, 14, 15 и 16 часов

@@ -20,8 +20,8 @@ pids
 lib-cov
 
 # Это из подсказки https://ru.stackoverflow.com/questions/436090/%D0%9E%D1%88%D0%B8%D0%B1%D0%BA%D0%B0-your-local-changes-to-the-following-files-would-be-overwritten-by-merge
-public/uploads/
-public/vendor/
+# public/uploads/
+# public/vendor/
 
 # Coverage directory used by tools like istanbul
 coverage

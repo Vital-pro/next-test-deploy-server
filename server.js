@@ -80,16 +80,19 @@ app.listen(process.env.PORT || 3001, () => {
 
 //! *****My START***********************************
 function startScheduleTasks() {
-  // const now = new Date();
+  const now = new Date();
   const dayOfWeek = new Date().getDay();
-  // const currentHour = now.getHours();
-  // const currentMinute = now.getMinutes();
+  const currentHour = now.getHours();
+  const currentMinute = now.getMinutes();
 
   if (dayOfWeek === 6) {
     cron.schedule('11-13,22-24 * * * *', getData);
   }
-  if (dayOfWeek === 0) {
+  if (dayOfWeek === 0 && currentHour >= 11 && currentHour < 12) {
     cron.schedule('31-33,50-52 * * * *', getData);
+  }
+  if (dayOfWeek === 0 && currentHour >= 12 && currentHour < 13) {
+    cron.schedule('19-22,27-30 * * * *', getData);
   }
   cron.schedule('*/15,*/42 5-12,15,16 * * 1-5', getData);
 }

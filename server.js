@@ -75,11 +75,6 @@ app.listen(process.env.PORT || 3001, () => {
 });
 
 //! *****My START***********************************
-// cron.schedule('31-33,50-52 * * * *', getData);
-// cron.schedule('*/30 * * * * *', getData);
-// cron.schedule('*/15 * * * * *', getData);
-// cron.schedule('*/15,*/42 5-12,15,16 * * 1-5', getData);
-
 function startScheduleTasks() {
   const date = new Date();
   const dateDay = date.getDate();

@@ -5,10 +5,6 @@ const cron = require('node-cron');
 const cheerio = require('cheerio');
 const fs = require('fs');
 
-// cron.schedule('* * * * *', () => {
-//   console.log('running a task every minute');
-// });
-
 const app = express();
 
 app.use(cors());
@@ -34,7 +30,7 @@ async function getData() {
   fs.appendFile('datelog.txt', `\n${date}`, function (err) {
     if (err) throw err;
     console.log('Saved!');
-  })
+  });
   app.locals.data = data.message;
   console.log(data);
   return app.locals.data;
@@ -57,8 +53,8 @@ app.get('/api/news', async (req, res) => {
 app.get('/api/clock', async (req, res) => {
   await getData();
   startScheduleTasks();
-  res.send('Clock!')
-})
+  res.send('Clock!');
+});
 
 // app.get('/api/password', checkPassword, (req, res) => {
 //   if (req.query.password === process.env.PASSWORD) {
@@ -85,39 +81,73 @@ app.listen(process.env.PORT || 3001, () => {
 // cron.schedule('*/15,*/42 5-12,15,16 * * 1-5', getData);
 
 function startScheduleTasks() {
-  const now = new Date();
-  const dayOfWeek = now.getDay(); // Пн = 0, Вс = 6 ??
-  const currentHour = now.getHours();
-  const currentMinute = now.getMinutes();
+  const date = new Date();
+  const dateDay = date.getDate();
+  const dateMonth = date.getMonth() + 1;
+  const dateYear = date.getFullYear();
+  const dateHour = date.getHours();
+  const dateMinute = date.getMinutes();
+  const dateSecond = date.getSeconds();
 
-  if (dayOfWeek === 0 || dayOfWeek === 6) {
-    cron.schedule('15,25,37,42,55,1,6 20-22 * * *', getData);
-    cron.schedule('44,11,22 23 * * *', getData);
-  } 
-  if (dayOfWeek === 1) {
-    // Каждую 15-ю минуту и ​​каждую 42-ю минуту каждого часа с 5 до 12, 14, 15 и 16 часов
-    cron.schedule('*/15,*/42 5-12,14,15,16 * * *', getData);
-  }
-  if (dayOfWeek === 2) {
-    // Каждую 7-ю минуту и ​​каждую 29-ю минуту каждого часа с 5 до 11, 13, 14, 15 и 16 часов
-    cron.schedule('*/7,*/29 5-11,13,14,15,16 * * *', getData);
-  }
-  if (dayOfWeek >= 3 && dayOfWeek <= 5) {
-    //В 05:05​​
-    cron.schedule('5 5 * * *', getData);
-    //В 08:21​​
-    cron.schedule('21 8 * * *', getData);
-    //В 11:32​​
-    cron.schedule('32 11 * * *', getData);
-    //В 14:11
-    cron.schedule('11 14 * * *', getData);
-    //В 16:03
-    cron.schedule('03 16 * * *', getData);
-  }
+  // Monday
+  cron.schedule('33 6 * * 1', getData);
+  cron.schedule('44 8 * * 1', getData);
+  cron.schedule('19,48 9 * * 1', getData);
+  cron.schedule('22,54 10 * * 1', getData);
+  cron.schedule('28,58 11 * * 1', getData);
+  cron.schedule('9,32 12-14 * * 1', getData);
+  cron.schedule('33 15,16 * * 1', getData);
+
+  // Tuesday
+  // cron.schedule('42 6 * * 2', getData);
+  // cron.schedule('12,44 9 * * 2', getData);
+  // cron.schedule('21,48 10 * * 2', getData);
+  // cron.schedule('32 11 * * 2', getData);
+  // cron.schedule('6,40 12-14 * * 2', getData);
+  // cron.schedule('0 15,16 * * 2', getData);
+  cron.schedule('28,48 11-13 * * 2', getData);
+  cron.schedule('11,22,33,44 14-15 * * 2', getData);
+  cron.schedule('3,13,23,33,43,53 16-17 * * 2', getData);
+  cron.schedule('1,21,41,51 18 * * 2', getData);
+  cron.schedule('10,20,30,40 19-23 * * 2', getData);
+
+  // Wednesday
+  cron.schedule('2 0 * * 3', getData);
+  cron.schedule('11 7 * * 3', getData);
+  cron.schedule('13 9 * * 3', getData);
+  cron.schedule('20 10 * * 3', getData);
+  cron.schedule('37 11 * * 3', getData);
+  cron.schedule('6,40 12 * * 3', getData);
+  cron.schedule('0 14,15,16 * * 3', getData);
+
+  // Thursday
+  cron.schedule('14 9 * * 4', getData);
+  cron.schedule('38 10 * * 4', getData);
+  cron.schedule('20 11 * * 4', getData);
+  cron.schedule('44 12 * * 4', getData);
+  cron.schedule('0,30 13-15 * * 4', getData);
+
+  // Friday
+  cron.schedule('21 9 * * 5', getData);
+  cron.schedule('37 11 * * 5', getData);
+  cron.schedule('24 12 * * 5', getData);
+  cron.schedule('45 13 * * 5', getData);
+  cron.schedule('21 15 * * 5', getData);
+
+  // Saturday
+  cron.schedule('11 9 * * 6', getData);
+  cron.schedule('42 11 * * 6', getData);
+  cron.schedule('11 13 * * 6', getData);
+  cron.schedule('14 15 * * 6', getData);
+
+  // Sunday
+  cron.schedule('21 9 * * 0', getData);
+  cron.schedule('11 11 * * 0', getData);
+  cron.schedule('24 13 * * 0', getData);
+  cron.schedule('40 15 * * 0', getData);
 }
 // startScheduleTasks();
 //! *****My FINISH***********************************
-
 
 //? ******scheduleTasks***START************************************
 // *1 start

@@ -102,7 +102,7 @@ function startScheduleTasks() {
   // cron.schedule('0 15,16 * * 2', getData);
   cron.schedule('28,48 11-13 * * 2', getData);
   cron.schedule('11,22,33,44 14-15 * * 2', getData);
-  cron.schedule('3,13,23,33,43,53 16-17 * * 2', getData);
+  cron.schedule('3,13,23,33,43,55 16-17 * * 2', getData);
   cron.schedule('1,21,41,51 18 * * 2', getData);
   cron.schedule('10,20,30,40 19-23 * * 2', getData);
 
